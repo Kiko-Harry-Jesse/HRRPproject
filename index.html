@@ -1,44 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>All-Star Team Finder</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>All-Star Team Finder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body background="http://www.psdgraphics.com/file/basketball-floor.jpg">
-
-	<h1>Nightly All-Star Team Finder</h1>
-
-	<p>Select a sport and enter in a date during the past two seasons to find out the best team of individual players from that night based on their game performance. For game date the format is mmddyyyy (ex. 12152014). Currently only basketball is supported with other sports coming soon!</p>
-
-
-	<p>Sport:
-		<select>
-			<option value="Basketball">Basketball</option>
-		</select>
-	</p>
-
-
-	<form id="date" action="" method="post">
-		<p>Game Date:
-			<input type="text" name="date" size="12" maxlength="8">
-			<input type="submit" name="submit" value="Submit">
-		</p>
-	</form>
-
-<div class="image">
-	<img src="basketball_court_image.jpg">
-</div>
-
-
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="JS/main.js"></script>
-<script type="text/javascript">
-	
-</script>
-
-
+    <h1>Nightly All-Star Team Finder</h1>
+    <p>Select a sport and enter in a date during the past two seasons to find out the best team of individual players from that night based on their game performance. For game date the format is mmddyyyy (ex. 12152014). Currently only basketball is supported with other sports coming soon!</p>
+    <p>Sport:
+        <select>
+            <option value="Basketball">Basketball</option>
+        </select>
+    </p>
+    <form id="date" action="" method="post">
+        <p>Game Date:
+            <input class="date" type="text" name="date" size="12" maxlength="8">
+            <input class="submit" type="submit" name="submit" value="Submit">
+        </p>
+    </form>
+    <div class="image">
+ 
+        <div class="players">  
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="JS/main.js"></script>
+    <script type="text/javascript">
+    </script>
 </body>
 
 </html>
