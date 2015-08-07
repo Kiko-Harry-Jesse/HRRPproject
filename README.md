@@ -2,21 +2,20 @@ Harry and Jesse's Sports API Extravaganza.
 
 
 Usage: 
-Type in year and sport and find out the best team that year according to our fancy algorithm.
+Type in the date, select the sport (currently only basketball is supported) and find out the 5 best players in the NBA from that night based on their offensive rating. 
 
 
 How it works: 
 
 
--Get API data from ESPN/other resources?
--Filter by sport/position/statistics.
--Display diamond/field/court with headshots of best players placed in appropriate positions on field.
--Reset button.
+-API https://probasketballapi.com/
+-Returns the best 5 offensive players in the NBA from a given date.
+-Display their names arranged around the court.
+-Resets every time a new date is entered.
 
 Graphics:
 
 -Search bar: dropdown for sports.
--Graphics for players and type of sport.
--Link players to their appropriate stats page on espn.
+-Player Headshots currently unavailable.
+-Sports field/court changes based on sport selected. 
 
-Kiko quick Github test.
