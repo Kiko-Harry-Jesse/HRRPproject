@@ -1,29 +1,47 @@
 $(document).ready(function() {
-        var add = {};
-        var date = '121713'// $("#date").val();
+    var add = {};
+    var date = '121713' // $("#date").val();
         //for games with date return stats. 
+    var storePlayerIds;
+    $.post("https://probasketballapi.com/players", {
+        'api_key': 'IN72DnQLG0VZ3EWCoPaOfUXtrSsmJq68',
+
+    }, function(data) {
+        storePlayerIds = JSON.parse(data);
+
+
+        console.log(storePlayerIds);
+
+
         $.post("https://probasketballapi.com/games", {
             'api_key': 'IN72DnQLG0VZ3EWCoPaOfUXtrSsmJq68',
             'date': date,
         }, function(data) {
-            var arrayOfGamesForDate = [];
             var gamesObj = JSON.parse(data);
             //loop through the gamesObj which contains their dates in order
             //to find the stats for each game
-
+            var numberOfGames = 0;
+            for (var key in gamesObj) {
+                numberOfGames++;
+            }
+            var gamesFetched = 0;
+            var playersOffRating = {};
             for (var key in gamesObj) {
                 $.post("https://probasketballapi.com/games", {
                     'api_key': 'IN72DnQLG0VZ3EWCoPaOfUXtrSsmJq68',
                     'game_id': key,
                     'get_extra': 1
                 }, function(data) {
+                    gamesFetched++;
                     var parsedObject = JSON.parse(data);
                     console.log(parsedObject);
+
                     //loop through parsedObject which is an object with all 
                     //the game_ids and extra stats to create key/value pairs 
                     //of player ids and adv_off_ratings.
+
                     for (var key in parsedObject) {
-                        var playersOffRating = {};
+
                         //stores all the away players and off ratings in an object
                         for (var i = 0; i < parsedObject[key].stats.away.length; i++) {
                             playersOffRating[parsedObject[key].stats.away[i].player_id] = parsedObject[key].stats.away[i].adv_off_rating;
@@ -32,32 +50,66 @@ $(document).ready(function() {
                         for (var i = 0; i < parsedObject[key].stats.home.length; i++) {
                             playersOffRating[parsedObject[key].stats.home[i].player_id] = parsedObject[key].stats.home[i].adv_off_rating;
                         }
-					 }
+                    }
 
-                   
-                    for (var key in playersOffRating) {
-                        $.post("https://probasketballapi.com/stats/players", {
-                            'api_key': 'IN72DnQLG0VZ3EWCoPaOfUXtrSsmJq68',
-                            'player_id': key
-                        }, function(data) {
-                            var parsedRatings = JSON.parse(data);
-                            console.log(parsedRatings)
+                    if (gamesFetched === numberOfGames) {
+                        var topFive = [];
+                        for (var key in playersOffRating) {
+                            if (topFive.length <= 4) {
+                                topFive.push([key, playersOffRating[key]]);
 
-                        });
+                            } else {
+                                var minimum = Math.infinity
+                                var minIndex;
+                                for (var i = 0; i < topFive.length; i++) {
+                                    if (topFive[i][1] < minimum) {
+                                        minimum = topFive[i][1];
+                                        minIndex = i;
+                                    }
+                                }
+
+                                if (playersOffRating[key] > minimum) {
+                                    topFive.splice(minIndex, 1);
+                                    topFive.push([key, playersOffRating[key]]);
+                                }
+                                //if current value in playersOffRating > min, replace
+                            }
+                        }
+                        var playerName = [];
+
+
+                        for (var i = 0; i < topFive.length; i++) {
+                            for (var j = 0; j < storePlayerIds.length; j++) {
+                                if (storePlayerIds[j].player_id.toString() === topFive[i][0]) {
+                                    playerName.push(storePlayerIds[j].player_name);
+                                    //get the name of that player
+
+
+                                }
+
+                                //get player name and  
+
+                            }
+                        }
+
+
+                        //look up player_id in stored Player IDs
+
                     }
 
                 });
+
             }
-
-
-            // var offRating = {
-
-            // }
-            //ParseObject: 
-
         });
-    })
-    //for each game_id put 	
+
+
+
+
+    });
+
+});
+
+//for each game_id put 	
 
 
 
